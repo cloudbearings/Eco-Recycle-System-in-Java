@@ -38,7 +38,6 @@ public class AdminLogin
     	/* login in interface */		    
 	public void login()
 	{
-
 		final JFrame start = new JFrame();
 
 		start.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -54,8 +53,7 @@ public class AdminLogin
 	        final Container scon=start.getContentPane();
 	
 	    	scon.setLayout(null);
-	    	// .setBounds(x, y, width, height);
-	    	sl3.setBounds(390,170,230,30);
+	    	sl3.setBounds(390,170,230,30); 	// setBounds(x, y, width, height);
 	    	sl1.setBounds(390,220,70,30);
 	    	st1.setBounds(460,220,120,30);
 	    	sl2.setBounds(390,270,70,30);
@@ -72,7 +70,7 @@ public class AdminLogin
 	    	start.setVisible(true);
 	
 	    	/* 	the "login in" button, when press this, system will get user id and password,
-	    	        and if password is correct, it will access the main interface */
+	    	        and if password is correct, it will access the main interface 	*/
 	    	
 	    	sb1.addActionListener (
 	    		new ActionListener() {
@@ -81,35 +79,33 @@ public class AdminLogin
 					String pass=sp1.getText(); 
 	    			
 		    			try { 
-		    		    		if(username.equals("admin") && pass.equals("admin")) {     		
+		    		    		if (username.equals("admin") && pass.equals("admin")) {     		
 			    		    		//go to main interface
 			    		    		st1.setText("");
 			    		    		sp1.setText("");
 			    		    		scon.removeAll();
 			    	        		start.setVisible(false);
 			    	        		new MainInterface(rmos);        
-		    		    	} 
-		    		    	
-		    		    	 else {
-		    		    		JOptionPane.showMessageDialog(null ,"The username or password you entered is incorrect.") ;	 
-		    		    	 }  
-	    			   } 
-	    			    
-	    			    catch (Exception e){ 
-	    			    	JOptionPane.showMessageDialog(null ,"The username or password you entered is incorrect.") ;
-	    			    	e.printStackTrace(); 
-	    			    } 
+		    		    		} 
+		    		    		 else {
+		    		    			JOptionPane.showMessageDialog(null ,"The username or password you entered is incorrect.") ;	 
+		    		    		 }  
+	    			   	} 
+					catch (Exception e){ 
+						JOptionPane.showMessageDialog(null ,"The username or password you entered is incorrect.") ;
+						e.printStackTrace(); 
+					} 
 	    			 }
-		    		 }
-		    	 );
+		    	}
+		);
 	
-		    	 /* 	the background of login in interface  */
-		    	 ((JComponent) start.getContentPane()).setOpaque(false);  
-		         java.net.URL url = AdminLogin.class.getResource("/gui/images/star.jpg");
-		         ImageIcon img = new ImageIcon(url);
-			 JLabel background = new JLabel(img);
-			 start.getLayeredPane().add(background, new Integer(Integer.MIN_VALUE));
-			 background.setBounds(0, 0, img.getIconWidth(), img.getIconHeight());
-		}
+	    	 /* 	the background of login in interface  */
+	    	 ((JComponent) start.getContentPane()).setOpaque(false);  
+	         java.net.URL url = AdminLogin.class.getResource("/gui/images/star.jpg");
+	         ImageIcon img = new ImageIcon(url);
+		 JLabel background = new JLabel(img);
+		 start.getLayeredPane().add(background, new Integer(Integer.MIN_VALUE));
+		 background.setBounds(0, 0, img.getIconWidth(), img.getIconHeight());
+	}
 }
 
