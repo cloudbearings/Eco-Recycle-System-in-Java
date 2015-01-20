@@ -1,9 +1,6 @@
 package Controller;
 
 import java.awt.Color;
-
-
-
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -23,11 +20,8 @@ import model.RMOS;
 import model.RCM;
 import model.Serialize_Deserialize;
 
-
 @SuppressWarnings("serial")
 public class CapabilitiesPanel extends JPanel implements ActionListener {
-
-	
 	private RMOS rmos;
 	private ArrayList<ArrayList<JTextField>> rows;
 	private RCM selectedRCM;
@@ -47,64 +41,51 @@ public class CapabilitiesPanel extends JPanel implements ActionListener {
 		
 		if (str == null || str.equalsIgnoreCase("All")) 
 			return;
-		
 		RCM selectedRCM = rmos.getRCMByID(str);		  
-		
 		updatePanel(selectedRCM);
 	}
 
 	public void updatePanel(RCM selectedRCM){
-		
 		if (selectedRCM == this.selectedRCM)
-			return;
-
-		   this.removeAll();
-		   rows.clear();
-		   this.selectedRCM = selectedRCM;
-		   indexCounter = 0;
-
+			return; 
+		this.removeAll();
+		rows.clear();
+		this.selectedRCM = selectedRCM;
+		indexCounter = 0;
+ 
+		JLabel t1 = new JLabel("Item type");
+		t1.setForeground(Color.BLUE); 
+		
+		JLabel t2 = new JLabel("Price for");  
+		t2.setForeground(Color.BLUE); 
+		 
+		JLabel t3 = new JLabel("weight (lbs)");  
+		t3.setForeground(Color.BLUE); 
+		 
+		JButton newItem = new JButton("Add item type");
+		newItem.enableInputMethods(true);
+		newItem.addActionListener(new NewTypeListener());
+		
+		this.add(t1);
+		this.add(t2); 
+		this.add(t3); 
+		
+		this.add(new JLabel("")); 
+		this.add(newItem);
+		 
+		ArrayList<ItemType> list = selectedRCM.getTypeList();
+		
+		for (int i = 0; i < list.size(); i++)
+		{
+			addRow(list.get(i));
+		}
 		   
-		   JLabel t1 = new JLabel("Item type");
-		   t1.setForeground(Color.BLUE); 
-		   
-		   JLabel t2 = new JLabel("Price for");  
-		   t2.setForeground(Color.BLUE); 
-
-		   
-		   JLabel t3 = new JLabel("weight (lbs)");  
-		   t3.setForeground(Color.BLUE); 
-
-		  		   
-		   JButton newItem = new JButton("Add item type");
-//		   newItem.setPreferredSize(new Dimension(100, 100));
-		   newItem.enableInputMethods(true);
-		   newItem.addActionListener(new NewTypeListener());
-		   
-		   this.add(t1);
-		   this.add(t2); 
-		   this.add(t3); 
-
-		   this.add(new JLabel("")); 
-		   this.add(newItem);
-		   
-		 		   
-		   ArrayList<ItemType> list = selectedRCM.getTypeList();
-		  
-		   for (int i = 0; i < list.size(); i++)
-		   {
-			   addRow(list.get(i));
-		   }
-		   
-		   this.revalidate();
-		   this.repaint();
-	}
-
+		this.revalidate();
+		this.repaint();
+	} 
 	
-	
-	private void addRow(ItemType itemType) {
-
-		   JTextField nameField = new  JTextField(1);
-	    
+	private void addRow(ItemType itemType) { 
+		   JTextField nameField = new  JTextField(1); 
 		   String name = "";
 		   double price = 0;
 		   double weight = 0;
@@ -117,19 +98,16 @@ public class CapabilitiesPanel extends JPanel implements ActionListener {
 			   weight = itemType.getWeightInlb();
 		   }
 		   
-		   nameField.setText("" + name);
-		    
+		   nameField.setText("" + name); 
 		   nameField.setHorizontalAlignment(SwingConstants.CENTER);
-		   nameField.setEditable(isNew);
+		   nameField.setEditable(isNew); 
 		   
-		   JTextField priceField = new  JTextField(1);
-		  		   
+		   JTextField priceField = new  JTextField(1); 
 		   priceField.setText("" + price); 
 		   priceField.setHorizontalAlignment(SwingConstants.CENTER);
 		   priceField.setEditable(isNew);
 		     
-		   JTextField weightField = new  JTextField(1);
-  		   
+		   JTextField weightField = new  JTextField(1); 
 		   weightField.setText("" + weight); 
 		   weightField.setHorizontalAlignment(SwingConstants.CENTER);
 		   weightField.setEditable(isNew);		   
@@ -158,12 +136,9 @@ public class CapabilitiesPanel extends JPanel implements ActionListener {
 	}
 	
 	
-	private class ChangeListener implements ActionListener {
-
-		private ArrayList<JTextField> list;
-		
-		ChangeListener(ArrayList<JTextField> list) {
-			
+	private class ChangeListener implements ActionListener { 
+		private ArrayList<JTextField> list; 
+		ChangeListener(ArrayList<JTextField> list) { 
 			this.list = list;
 		}
 		@Override
@@ -174,32 +149,26 @@ public class CapabilitiesPanel extends JPanel implements ActionListener {
 		}			
 	}
 	
-	private class NewTypeListener implements ActionListener {
-		
+	private class NewTypeListener implements ActionListener { 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			CapabilitiesPanel.this.addRow(null);
-			
+			CapabilitiesPanel.this.addRow(null); 
 		}			
 	}
 	
-	private class SaveListener implements ActionListener {
-		
+	private class SaveListener implements ActionListener { 
 		private int index;
-		private boolean isNew;
-//		private JButton button;
+		private boolean isNew; 
 		
 		SaveListener(int index, boolean isNew) {
 			this.index = index;
 			this.isNew = isNew;
 		}
+		
 		@Override
-		public void actionPerformed(ActionEvent e) {
-
-			ArrayList<JTextField> list = rows.get(index);
-
-			try {
-
+		public void actionPerformed(ActionEvent e) { 
+			ArrayList<JTextField> list = rows.get(index); 
+			try { 
 				String name = list.get(0).getText();
 
 				if (name.isEmpty())
@@ -216,37 +185,35 @@ public class CapabilitiesPanel extends JPanel implements ActionListener {
 				}
 				
 				JOptionPane.showMessageDialog(null,
-						" \nSuccess! Item Type was successfully saved.", null, JOptionPane.INFORMATION_MESSAGE);
-				
-				Serialize_Deserialize.serializeObject(rmos);
-				
-			} catch (NullPointerException exception) 
-			{
+					" \nSuccess! Item Type was successfully saved.", null, JOptionPane.INFORMATION_MESSAGE);
+			 	Serialize_Deserialize.serializeObject(rmos);
+			} 
+			catch (NullPointerException exception) {
 				exception.printStackTrace();
 				JOptionPane
 				.showMessageDialog(
-						null,
-						"Invalid input! Empty field",
-						"Error",
-						JOptionPane.ERROR_MESSAGE);
-				
-			} catch (NumberFormatException exception) {
+					null,
+					"Invalid input! Empty field",
+					"Error",
+					JOptionPane.ERROR_MESSAGE);	
+			} 
+			catch (NumberFormatException exception) {
 				JOptionPane
 				.showMessageDialog(
-						null,
-						"Invalid input! Please enter a positive number",
-						"Error",
-						JOptionPane.ERROR_MESSAGE);
+					null,
+					"Invalid input! Please enter a positive number",
+					"Error",
+					JOptionPane.ERROR_MESSAGE);
 
-			} catch (IllegalArgumentException exception) {
+			} 
+			catch (IllegalArgumentException exception) {
 				JOptionPane
 				.showMessageDialog(
-						null,
-						"Invalid input! Item with duplicated item type name",
-						"Error",
-						JOptionPane.ERROR_MESSAGE);
-			}
-			
+					null,
+					"Invalid input! Item with duplicated item type name",
+					"Error",
+					JOptionPane.ERROR_MESSAGE);
+			} 
 		}			
 	}
 }
