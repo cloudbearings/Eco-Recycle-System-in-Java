@@ -1,10 +1,8 @@
 package model;
 import java.util.ArrayList;
-
 import java.util.Date;
 import java.util.Observable;
 import java.io.*;
-
 import model.RCMStatus;
 
 /**
@@ -237,7 +235,6 @@ public class RMOS extends Observable implements Serializable{
 		return RCM.getLastEmptyTime();
 	}
 	
-	
 	public int getNoOfEmptyTimeInLastNHours(RCM RCM, int n){
 		return RCM.getNoOfEmptyTimeInLastNHours(n);
 	}
@@ -280,6 +277,7 @@ public class RMOS extends Observable implements Serializable{
 			}
 			return useMostRCMList;	
 		}
+		
 		else if (useMostRCMList.size() >1) {
 			System.out.println("There are " + useMostRCMList.size() + " RCMs that are used most in the last " + n + " days\n");
 			System.out.println("Use times is(are): " + useMostRCMList.get(0).getUseTimesInLastNDay(n));
