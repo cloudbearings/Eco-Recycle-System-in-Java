@@ -12,8 +12,8 @@ package model;
  * @CourseNumber: COEN 275
  * @AssignmentNumber: Final Project
  * @DateOfSubmission: 3/2014
- *
  */
+ 
 public abstract class Reward {
 	//data member
 	protected double totalValue;
