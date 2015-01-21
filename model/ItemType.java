@@ -16,10 +16,9 @@ import java.io.*;
  *
  */
 public class ItemType implements Serializable {
-	/**
-	 * System generate a serial Version ID;
-	 */
+	/* System generate a serial Version ID; */
 	private static final long serialVersionUID = 7652100000729626969L;
+	
 	//data member
 	private String typeName;
 	private double typePrice;
@@ -46,8 +45,7 @@ public class ItemType implements Serializable {
 	
 	public void setWeight(double weightForPrice) {
 		this.weightForPrice = weightForPrice;
-	}
-	
+	} 
 	
 	public String getType() {
 		return typeName;
@@ -79,8 +77,5 @@ public class ItemType implements Serializable {
   		String str = "TypeName: "+ getType() + "\tPrice: " + this.getPrice() + " for " + this.getWeightInlb() + "\n";
   		
   		return str;
-  	}	
-	
-	
-	
+  	} 
 }
