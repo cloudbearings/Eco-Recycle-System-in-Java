@@ -1,16 +1,11 @@
-/**
- * 
- */
 package model;
 
 import java.text.DecimalFormat;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Observable;
 import java.io.*;
 import java.util.GregorianCalendar;
-
 
 /**
  * This class represents a RCM (Recycling Machine) that will be used by
@@ -32,10 +27,9 @@ import java.util.GregorianCalendar;
  * 
  */
 public class RCM extends Observable implements Serializable {
-	/**
-	 * System generate a serial Version ID;
-	 */
+	/**  System generate a serial Version ID; */
 	private static final long serialVersionUID = -4700886223615700982L;
+	
 	// data member
 	private String RCMID;
 	private String RCMLocation;
@@ -52,13 +46,12 @@ public class RCM extends Observable implements Serializable {
 	public ArrayList<GregorianCalendar> emptyTimeList;
 	public ArrayList<GregorianCalendar> useTimeList;
 	
-	//final array. used to get the month in the method "get number of items in a month"
+	// final array. used to get the month in the method "get number of items in a month"
 	public static final String [] Month = {"JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY","JUNE",
 		"JULY", "AUGUST", "SEPTEMBER", "OCTOBER","NOVEMBER", "DECEMBER"};
 
 	// constructor
-	public RCM(String RCMID, String RCMLocation, double RCMMaxWeight,
-			double RCMInitMoney) {
+	public RCM(String RCMID, String RCMLocation, double RCMMaxWeight, double RCMInitMoney) {
 		this.RCMID = RCMID;
 		this.RCMLocation = RCMLocation;
 		this.RCMMaxWeight = RCMMaxWeight;
@@ -75,14 +68,9 @@ public class RCM extends Observable implements Serializable {
 	}
 	
 	//default no-argument constructor for serialize
-	public RCM() {
-		
-	}
+	public RCM() {}
 	
-
 	// methods
-	
-	
 	public String getRCMID() {
 		return RCMID;
 	}
@@ -117,15 +105,13 @@ public class RCM extends Observable implements Serializable {
 			double itemPrice, double weightForPrice) throws IllegalArgumentException, NumberFormatException {
 
 		if ((!aboveZero(itemPrice)) || (!aboveZero(weightForPrice))) {
-
 			throw new NumberFormatException("itemType " + typeName + ": "
 					+ "itemPrice and weight must be greater than zero.");
 		}
 
 		int i = indexOfItemTypeByName(typeName);
 		
-		if (i != -1)
-		{
+		if (i != -1)	{
 			throw new IllegalArgumentException("Itemtype "
 					+ typeName
 					+ " exists in the ItemTypeList. You can click Change button to change its price by weight.");					
@@ -135,16 +121,11 @@ public class RCM extends Observable implements Serializable {
 		itemTypeList.add(itemType);
 		setChanged();
 		notifyObservers();
-				
 	}
-
-
-
+	
 	public void changeItemType(int index, String typeName,
 			double itemPrice, double weightForPrice) throws IllegalArgumentException, NumberFormatException {
-
 		if ((!aboveZero(itemPrice)) || (!aboveZero(weightForPrice))) {
-
 			throw new NumberFormatException("itemType " + typeName + ": "
 					+ "itemPrice and weight must be greater than zero.");
 		}
@@ -153,10 +134,8 @@ public class RCM extends Observable implements Serializable {
 		
 		if (i != -1 && i != index)
 		{
-			
-			throw new IllegalArgumentException("Itemtype "
-					+ typeName
-					+ " exists in the ItemTypeList. You can click Change button to change its price by weight.");			
+			throw new IllegalArgumentException("Itemtype " + typeName
+				+ " exists in the ItemTypeList. You can click Change button to change its price by weight.");			
 		}	
 		
 		ItemType itemType = itemTypeList.get(index);
@@ -178,19 +157,7 @@ public class RCM extends Observable implements Serializable {
 		}
 		
 		return i;
-	}
-	
-//	public void changeItemPrice(ItemType itemType, double itemPrice,
-//			double weightForPrice) {
-//		if ((!aboveZero(itemPrice)) || (!aboveZero(weightForPrice))) {
-//			System.out.println("itemType " + itemType.getType() + ": "
-//					+ "itemPrice and weight must be greater than zero.");
-//			return;
-//		}
-//
-//		itemType.setPrice(itemPrice);
-//		itemType.setWeight(weightForPrice);
-//	}
+	} 
 
 	/**
 	 * Display the list of recyclable item types and the price paid for each of
@@ -230,13 +197,10 @@ public class RCM extends Observable implements Serializable {
 			typeList += itemTypeList.get(i).showTypeStatusWeightInkg();
 		}
 		return typeList;
-
 	}
 
 	/**
-	 * This method is used to get one type in the exist itemTypeList and change
-	 * it.
-	 * 
+	 * This method is used to get one type in the exist itemTypeList and change it.
 	 * @return itemTypeList
 	 */
 	public ArrayList<ItemType> getTypeList() {
@@ -278,7 +242,6 @@ public class RCM extends Observable implements Serializable {
 		return RCMMaxWeight - RCMCurrWeight;
 	}
 
-	
 	/**
 	 * 
 	 * If user drops an item successfully, add this item to recycleItemList for get reward;
@@ -295,8 +258,7 @@ public class RCM extends Observable implements Serializable {
 			throw new NumberFormatException("Item weight must be greater than zero");
 		}
 
-		// Does not allow an item that is not permitted and shown as a
-		// recyclable item
+		// Does not allow an item that is not permitted and shown as a recyclable item
 
 		int index = this.indexOfItemTypeByName(typeName);
 		
@@ -325,13 +287,13 @@ public class RCM extends Observable implements Serializable {
 			return "There are no items in the list";
 		}
 		String itemList = "";
-		System.out
-				.println("List of recycleItem's type, weight(lb) and price due to the customer:");
+		System.out.println("List of recycleItem's type, weight(lb) and price due to the customer:");
 		System.out.println("\t" + "itemType" + "\t" + "itemWeight " + "\t"
 				+ "itemPrice");
 		for (i = 0; i < recycleItemList.size(); i++) {
 			itemList += recycleItemList.get(i).showItemStatusWeightInlb();
 		}
+		
 		System.out.println("The total value due to the customer is: $"
 				+ valueForUser());
 		return itemList;
@@ -344,13 +306,14 @@ public class RCM extends Observable implements Serializable {
 			return "There are no items in the list";
 		}
 		String itemList = "";
-		System.out
-				.println("List of recycleItem's type, weight(kg) and price due to the customer:");
+		System.out.println("List of recycleItem's type, weight(kg) and price due to the customer:");
 		System.out.println("\t" + "itemType" + "\t" + "itemWeight " + "\t"
 				+ "itemPrice");
+				
 		for (i = 0; i < recycleItemList.size(); i++) {
 			itemList += recycleItemList.get(i).showItemStatusWeightInkg();
 		}
+		
 		System.out.println("The total value due to the customer is: $"
 				+ valueForUser());
 		return itemList;
@@ -386,7 +349,6 @@ public class RCM extends Observable implements Serializable {
 	}
 
 	public Reward getReward() {
-
 		if (valueForUser() <= RCMCurrMoney) {
 			RCMCurrMoney -= valueForUser();
 			GregorianCalendar useTime = new GregorianCalendar();
@@ -414,31 +376,13 @@ public class RCM extends Observable implements Serializable {
 	public void emptyRCM() {
 		
 		GregorianCalendar emptyTime = new GregorianCalendar();
-
 		System.out.println("The emptyTime is: " + emptyTime.getTime());
 		emptyTimeList.add(emptyTime);
 		currentItemList.clear();
 		RCMCurrWeight = 0;
-		
-	
 	}
-//	
-//	public int getNoOfItemInAMonth() {
-//		
-//		GregorianCalendar lastOneMonth = new GregorianCalendar();
-//		lastOneMonth.add(GregorianCalendar.MONTH, -1);
-//		int counter = 0;
-//		
-//		for(int i = 0; i < this.totalItemList.size(); i++) {
-//			if (totalItemList.get(i).getItemAddTime().after(lastOneMonth.getTime())) {
-//				counter++;
-//			}
-//		}
-//		return counter;
-//	}
-	
+
 	public int getNoOfItemInNDays(int n) {
-		
 		GregorianCalendar lastNDays = new GregorianCalendar();
 		lastNDays.add(GregorianCalendar.DATE, -n);
 		int counter = 0;
@@ -452,7 +396,7 @@ public class RCM extends Observable implements Serializable {
 			System.out.println("1 day before:" + (lastNDays.getTime()).toString());
 			System.out.println(isAfter);
 		}
-
+		
 		return counter;
 	}
 
@@ -544,7 +488,6 @@ public class RCM extends Observable implements Serializable {
 		ArrayList<Double> list = new ArrayList<Double>();
 		double totalWeight = 0;
 		double totalValue = 0;
-		
 		int diffDays = 1;
 		
 		if (totalItemList.size() == 0) {
@@ -559,22 +502,19 @@ public class RCM extends Observable implements Serializable {
 		
 		GregorianCalendar startDate = totalItemList.get(0).getItemAddTime();
 		GregorianCalendar endDate = totalItemList.get(totalItemList.size() - 1).getItemAddTime();
-		
 		GregorianCalendar tempStart = (GregorianCalendar)startDate.clone();
 		GregorianCalendar tempEnd = (GregorianCalendar)endDate.clone();
-		
 		
 		while (tempStart.get(GregorianCalendar.YEAR) != tempEnd.get(GregorianCalendar.YEAR) || tempStart.get(GregorianCalendar.DAY_OF_YEAR) != tempEnd.get(GregorianCalendar.DAY_OF_YEAR)) {
 			diffDays++;
 			tempStart.add(GregorianCalendar.DATE, 1);
 		}
 	
-		//In order to get ceiling, integer / integer must be avoided. That is, dividend or  divisor must be double type. 
-		 int week = (int)Math.ceil(diffDays / 7.0);
+		// In order to get ceiling, integer / integer must be avoided. That is, dividend or  divisor must be double type. 
+		int week = (int)Math.ceil(diffDays / 7.0);
 		 
 		list.add(totalWeight/week);
 		list.add(totalValue/week);
-					
 		return list;	
 	}
 	
@@ -672,8 +612,8 @@ public class RCM extends Observable implements Serializable {
 		str += "Number of items returned by this RCM (" + this.getRCMID() + ") in the last n days are: \n";
 		str += this.getNoOfItemInNDays(1);
 		str += "\n";
-		
 		str += "Time that this RCM (" + this.getRCMID() + ") emptied: \n";
+
 		for (int i = 0; i < emptyTimeList.size(); i++) {
 			str += emptyTimeList.get(i).getTime();
 			str += "\n";
@@ -682,9 +622,8 @@ public class RCM extends Observable implements Serializable {
 		str += "Time that this RCM (" + this.getRCMID() + ") last emptied: \n";
 		str += this.getLastEmptyTime();
 		str += "\n";
-		
-		
 		str += "Time that this RCM (" + this.getRCMID() + ") is used: \n";
+
 		for (int i = 0; i < useTimeList.size(); i++) {
 			str += useTimeList.get(i).getTime();
 		}
@@ -692,7 +631,4 @@ public class RCM extends Observable implements Serializable {
 		str += "\n";
 		return str;
 	}
-
-
-
 }
