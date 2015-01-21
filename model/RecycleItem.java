@@ -3,7 +3,6 @@ package model;
 import java.io.Serializable;
 import java.util.GregorianCalendar;
 
-
 /**
  * This class represents items the customer recycles.  It holds the items' information: itemType and weight.
  * 
@@ -13,13 +12,12 @@ import java.util.GregorianCalendar;
  * @CourseNumber: COEN 275
  * @AssignmentNumber: Final Project
  * @DateOfSubmission: 3/2014
- *
  */
+ 
 public class RecycleItem implements Serializable{
-	/**
-	 * System generate a serial Version ID;
-	 */
+	/**  System generate a serial Version ID; */
 	private static final long serialVersionUID = -216726458316195860L;
+	
 	//data member
 	private ItemType itemType;
 	private double itemWeight;
@@ -32,8 +30,7 @@ public class RecycleItem implements Serializable{
 		this.itemWeight = itemWeight;
 		addItemTime = new GregorianCalendar();		
 	}
-	
-	
+	 	
 	//methods
 	public ItemType getItemType() {
 		return itemType;
@@ -75,7 +72,5 @@ public class RecycleItem implements Serializable{
 		str += "\t Add Time: " + this.getItemAddTime().getTime();
 		str += "\n";
 		return str;
-	}
-	
-
+	} 
 }
