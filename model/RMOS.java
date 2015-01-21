@@ -7,7 +7,6 @@ import java.io.*;
 
 import model.RCMStatus;
 
-
 /**
  * This class represents a RMOS system (Recycling Machine) that will be used by administrator to monitor RCM or itemType. 
  * It has some responsibilities:
@@ -21,14 +20,12 @@ import model.RCMStatus;
  * @Section: Tuesday and Thursday 
  * @CourseNumber: COEN 275
  * @AssignmentNumber: Final Project
- * @DateOfSubmission: 3/2014
- *
+ * @DateOfSubmission: 3/2014 
  */
+ 
 public class RMOS extends Observable implements Serializable{
 
-	/**
-	 * System generate a serial Version ID;
-	 */
+	/** System generate a serial Version ID; */
 	private static final long serialVersionUID = -3044191174489783065L;
 	
 	//data member
@@ -51,21 +48,20 @@ public class RMOS extends Observable implements Serializable{
 	public Boolean addRCM(String RCMID, String RCMLocation, double RCMMaxWeight, double RCMInitMoney) {
 		int i;
 		if ((!aboveZero(RCMMaxWeight)) || (!aboveZero(RCMInitMoney))) {
-
 			throw new NumberFormatException("Weight and money must be greater than zero.");
 		}
+		
 		for (i = 0; i < RCMList.size(); i++) {
 			if (RCMID.equalsIgnoreCase(RCMList.get(i).getRCMID()) ) {
 				System.out.println("The RCM has been monitor by RMOS");
 				return false;
-				
 			}
 		}
+		
 		RCMList.add(new RCM(RCMID, RCMLocation, RCMMaxWeight, RCMInitMoney));
 		setChanged();
 		notifyObservers();
 		return true;
-		
 	}
 	
 	public void reactivateRCM(String RCMID) {
@@ -101,20 +97,7 @@ public class RMOS extends Observable implements Serializable{
 		setChanged();
 		notifyObservers();
 	}
-/*	
-	public void addRCM(RCM RCM) {
-		for (int i = 0; i < RCMList.size(); i++) {
-			if (RCM.getRCMID().equalsIgnoreCase(RCMList.get(i).getRCMID()) ) {
-				System.out.println("The RCM has been monitor by RMOS");
-				return;				
-			}
-		}
-		RCMList.add(RCM);
-		setChanged();
-		notifyObservers(null);
-	}
-*/
-	
+
 	public void removeRCM(String RCMID) {
 		int i;
 		for (i = 0; i < RCMList.size(); i++) {
@@ -226,13 +209,7 @@ public class RMOS extends Observable implements Serializable{
 	public void changeItemType (RCM RCM, int index, String typeName, double itemPrice, double weightForPrice) {
 		RCM.changeItemType(index, typeName, itemPrice, weightForPrice);		
 	}
-	
-//	public void changeItemPrice (RCM RCM, ItemType itemType, double itemPrice, double weightForPrice) {
-//		RCM.changeItemPrice(itemType, itemPrice, weightForPrice);
-//		setChanged();
-//		notifyObservers();
-//	}
-	
+
 	public double getRCMMoney(RCM RCM) {
 		System.out.println("Amount of money in RCM( " + RCM.getRCMID() + ", "+ RCM.getRCMLocation() + ") : $" + RCM.getCurrMoney());
 		return RCM.getCurrMoney();
@@ -242,16 +219,7 @@ public class RMOS extends Observable implements Serializable{
 		System.out.println("RCM( " + RCM.getRCMID() + ", "+ RCM.getRCMLocation() + ") currentWeight: " + RCM.getCurrWeightInlb() + "lb(s);\n\t\t\t availableWeight " + (RCM.getMaxWeight() - RCM.getCurrWeightInlb()) + "lb(s)");
 		return RCM.getCurrWeightInlb();
 	}	
-//	
-//	public int getNoOfItemInAMonth(RCM RCM, String month) {
-//		for (int i = 0; i < RCMList.size(); i++) {
-//			if (RCMList.get(i).getRCMID().equalsIgnoreCase(RCM.getRCMID())) {
-//				return RCM.getNoOfItemInAMonth();
-//			}
-//		}
-//		return 0;
-//	}
-	
+
 	public int getNoOfItemInNDays(RCM RCM, int n) {
 		for (int i = 0; i < RCMList.size(); i++) {
 			if (RCMList.get(i).getRCMID().equalsIgnoreCase(RCM.getRCMID())) {
@@ -296,6 +264,7 @@ public class RMOS extends Observable implements Serializable{
 				maxUseTimes = RCMList.get(i).getUseTimesInLastNDay(n);
 			}
 		}
+		
 		if (maxUseTimes == 0) {
 			useMostRCMList = null;
 			System.out.println("All the RCMs are not used in the last " + n + " days");
@@ -329,7 +298,6 @@ public class RMOS extends Observable implements Serializable{
 	}
 	
 	public void statusUpdated(){
-		
 		this.setChanged();
 		this.notifyObservers();
 	}
@@ -342,5 +310,4 @@ public class RMOS extends Observable implements Serializable{
 		str += "\n";
 		return str;
 	}
-	
 }
