@@ -1047,82 +1047,73 @@ public class MainInterface extends JFrame implements ActionListener {
 		c5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				try {
-
 					if (!c2.getText().isEmpty() && !c4.getText().isEmpty()
-							&& !c7.getText().isEmpty()
-							&& !c9.getText().isEmpty()) {
-					 
-						if (Double.parseDouble(c7.getText().toString()) > 0
+						&& !c7.getText().isEmpty()
+						&& !c9.getText().isEmpty()) { 
+							if (Double.parseDouble(c7.getText().toString()) > 0
 								|| Double.parseDouble(c9.getText().toString()) > 0) {
-
-							if (!RMOS1.addRCM(
+								if (!RMOS1.addRCM(
 									c2.getText(),
 									c4.getText(),
 									Double.parseDouble(c7.getText().toString()),
 									Double.parseDouble(c9.getText().toString()))) {
-								JOptionPane
+										JOptionPane
 										.showMessageDialog(
-												MainInterface.this,
-												"Invalid input! The RCM is already monitored by this RMOS (ID duplicated)",
-												"Error",
-												JOptionPane.ERROR_MESSAGE);
-
+											MainInterface.this,
+											"Invalid input! The RCM is already monitored by this RMOS (ID duplicated)",
+											"Error",
+											JOptionPane.ERROR_MESSAGE);
 								return;
 							}
 
 							StringBuilder c6 = new StringBuilder(
-									" \nSuccess! RCM "
-											+ c2.getText()
-											+ " at location "
-											+ c4.getText()
-											+ " was successfully added to the system.");
+								" \nSuccess! RCM "
+								+ c2.getText()
+								+ " at location "
+								+ c4.getText()
+								+ " was successfully added to the system.");
 							JOptionPane.showMessageDialog(MainInterface.this,
-									c6, null, JOptionPane.INFORMATION_MESSAGE);
+								c6, null, JOptionPane.INFORMATION_MESSAGE);
 							serializeRMOS();
 							return;
 						} else {
 							JOptionPane
-									.showMessageDialog(
-											MainInterface.this,
-											"Invalid input! Please enter a positive number",
-											"Error", JOptionPane.ERROR_MESSAGE);
+								.showMessageDialog(
+									MainInterface.this,
+									"Invalid input! Please enter a positive number",
+									"Error", JOptionPane.ERROR_MESSAGE);
 							return;
 						}
 					} else {
 						JOptionPane.showMessageDialog(MainInterface.this,
-								"Please enter a valid input", "Error",
-								JOptionPane.ERROR_MESSAGE);
+							"Please enter a valid input", "Error",
+							JOptionPane.ERROR_MESSAGE);
 						return;
 					}
-
 				} 
 				catch(NumberFormatException exception) {
 					JOptionPane
 					.showMessageDialog(
-							MainInterface.this,
-							"Invalid input! Please enter a positive number",
-							"Error", JOptionPane.ERROR_MESSAGE);
+						MainInterface.this,
+						"Invalid input! Please enter a positive number",
+						"Error", JOptionPane.ERROR_MESSAGE);
 				}
 				catch (IllegalArgumentException exception) {
 					JOptionPane
 					.showMessageDialog(
-							null,
-							"Invalid input! Item with duplicated item type name",
-							"Error",
-							JOptionPane.ERROR_MESSAGE);
+						null,
+						"Invalid input! Item with duplicated item type name",
+						"Error",
+						JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
 
 		buttonPanel.removeAll();
 		displayPanel.removeAll();
-		// buttonPanel.setBorder(BorderFactory.createTitledBorder("Add and activate RCM"));
-		// buttonPanel.add(sl1);
-		ImageIcon icon = new ImageIcon(
-				MainInterface.class.getResource("/gui/images/add.png"));
+		ImageIcon icon = new ImageIcon(MainInterface.class.getResource("/gui/images/add.png"));
 		sl1.setIcon(icon);
 		displayPanel.add(sl1);
-	
 		buttonPanel.add(sl2);
 		buttonPanel.add(new JLabel(""));
 		buttonPanel.add(c1);
@@ -1202,7 +1193,6 @@ public class MainInterface extends JFrame implements ActionListener {
 				statusLabel.setForeground(Color.RED);
 			}
 		}
-
 		buttonPanel.add(sl1);
 		resultPanel.add(grid);
 		resultPanel.setVisible(true);
