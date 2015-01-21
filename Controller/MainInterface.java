@@ -36,22 +36,18 @@ public class MainInterface extends JFrame implements ActionListener {
 	private JRadioButton[] radioButton;
 	private String[] btnText2;
 	private JCheckBox[] checkBoxList;
-	private final static String[] url = { "./picture/1.png", "./picture/2.png",
-			"./picture/3.png" };
+	private final static String[] url = { "./picture/1.png", "./picture/2.png", "./picture/3.png" };
 	private static final String PINK = null;
 	private JTextArea displayInfo;
 	private JLabel sl1, sl2;
 	DecimalFormat df = new DecimalFormat("#.##");
-
 	private JMenuItem add;
 	private RMOS RMOS1;
 	private SelectMachineDropDown machineDropDown;
 	private CapabilitiesPanel capabilitiesPanel;
-
 	private StatsPanel statsPanel;
 
 	public MainInterface(RMOS rmos) {
-
 		RMOS1 = rmos;
 		machineDropDown = new SelectMachineDropDown(RMOS1);
 		RMOS1.addObserver(machineDropDown);
@@ -92,8 +88,7 @@ public class MainInterface extends JFrame implements ActionListener {
 		menu.setBounds(12, 6, 90, 21);
 
 		// Create a menu item
-		JMenuItem statistics = new JMenuItem(
-				"View usage statistics of all RCMs");
+		JMenuItem statistics = new JMenuItem("View usage statistics of all RCMs");
 		statistics.setForeground(new Color(0, 0, 0));
 		statistics.setFont(new Font("Verdana", Font.PLAIN, 16));
 		statistics.addActionListener(this);
@@ -119,13 +114,11 @@ public class MainInterface extends JFrame implements ActionListener {
 		// Add the menu item to menu
 		menu.add(statistics);
 		menu.add(exit);
-
 		menu2.add(add);
 		menu2.add(generateMenuItem("Remove RCM"));
 		menu2.add(generateMenuItem("Deactivate RCM"));
 		menu2.add(generateMenuItem("Reactivate RCM"));
 		menu2.add(generateMenuItem("Empty RCM"));
-
 		menu2.addSeparator();
 		menu2.add(submenu);
 		menu2.addSeparator();
@@ -135,11 +128,8 @@ public class MainInterface extends JFrame implements ActionListener {
 		submenu.add(generateMenuItem("Check number of items returned by RCM in a month"));
 		submenu.add(generateMenuItem("Show the time RCM was emptied last time"));
 		submenu.add(generateMenuItem("Show RCM used most frequently in the last n days"));
-
 		menu2.add(generateMenuItem("Update the capabilities of RCMs"));
-
 		setJMenuBar(menuBar);
- 
 		pack();
 		setSize(640, 1240); 
 		setVisible(true); 
@@ -190,7 +180,6 @@ public class MainInterface extends JFrame implements ActionListener {
 				AdminLogin si = new AdminLogin(RMOS1);
 				si.login();
 			}
-
 		}
 	} 
 	
@@ -209,6 +198,7 @@ public class MainInterface extends JFrame implements ActionListener {
 	private void createSelectionPanel() {
 		selectionPanel = new JPanel(); 
 		buttonPanel = new JPanel(new GridLayout(18, 1)); 
+		
 		JLabel sl1 = new JLabel("Welcome to Eco Recycle System");
 		sl1.setHorizontalAlignment(SwingConstants.CENTER);
 		sl1.setIcon(null);
@@ -225,7 +215,6 @@ public class MainInterface extends JFrame implements ActionListener {
 		buttonPanel.add(sl1);
 		buttonPanel.add(new JLabel(""));
 		buttonPanel.add(sl2);
-
 		buttonPanel.setBorder(BorderFactory.createEtchedBorder());
 		selectionPanel.add(buttonPanel);
 		selectionPanel.setBorder(BorderFactory.createEtchedBorder());
@@ -247,7 +236,6 @@ public class MainInterface extends JFrame implements ActionListener {
 	}
 	
 	private void reactivateRCM() {
-	
 		clearPanels(); 
 		displayPanel.removeAll();
 		resultPanel.removeAll();
@@ -349,18 +337,14 @@ public class MainInterface extends JFrame implements ActionListener {
 
 		displayPanel.add(sl1); 
 		buttonPanel.add(machineDropDown);
-
 		machineDropDown.toggleHasAll(true);
-	 
 		buttonPanel.add(c5);
 		buttonPanel.revalidate();
 		buttonPanel.repaint();
-
 		displayPanel.revalidate();
 		displayPanel.repaint();
 		setVisible(true);
 	}
-
 
 	private void emptyRCM() {
 		buttonPanel.removeAll();
@@ -376,12 +360,10 @@ public class MainInterface extends JFrame implements ActionListener {
 		c5.setSize(5, 5);
 		c5.setFont(new Font("Serif", Font.PLAIN, 20));
 		c5.setToolTipText("Click this button to empty the RCM.");
-
 		c5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				try {
-					String str = (String) machineDropDown.getSelectedItem();
-					{
+					String str = (String) machineDropDown.getSelectedItem(); {
 						if (str.equalsIgnoreCase("")) {
 							JOptionPane.showMessageDialog(MainInterface.this,
 									"There are no RCMs to empty.", "Error",
@@ -391,13 +373,10 @@ public class MainInterface extends JFrame implements ActionListener {
 
 						if (str.equalsIgnoreCase("All")) {
 							RMOS1.emptyAllRCM();
-							
 							JOptionPane.showMessageDialog(null, " All machines are emptied successfully from the system");
-						}
-						else
-						{
+						} else	{
 							RMOS1.emptyRCM(str);
-						JOptionPane.showMessageDialog(null, " Machine " + str
+							JOptionPane.showMessageDialog(null, " Machine " + str
 								+ " was emptied successfully from the system");
 						}
 						serializeRMOS();
@@ -413,15 +392,12 @@ public class MainInterface extends JFrame implements ActionListener {
 
 		buttonPanel.add(machineDropDown);
 
-		machineDropDown.toggleHasAll(true);
-		// selectMachine();
+		machineDropDown.toggleHasAll(true); 
 		buttonPanel.add(c5);
 		buttonPanel.revalidate();
 		buttonPanel.repaint();
-		
 		resultPanel.revalidate();
 		resultPanel.repaint();
-
 		displayPanel.revalidate();
 		displayPanel.repaint();
 		setVisible(true);
@@ -430,7 +406,6 @@ public class MainInterface extends JFrame implements ActionListener {
 
 	private void checkMostFreq() { 
 		clearPanels();
-
 		setTitle("Welcome to Eco Recycle System (Show RCM used most frequently in the last n days");
 
 		JLabel sl1 = new JLabel(
@@ -498,8 +473,7 @@ public class MainInterface extends JFrame implements ActionListener {
 				}
 
 				int day = Integer.parseInt(n.getText());
-				ArrayList<RCM> useMostRCMList = RMOS1
-					.getUsedMostRCMInNDays(day);
+				ArrayList<RCM> useMostRCMList = RMOS1.getUsedMostRCMInNDays(day);
 				StringBuilder str = new StringBuilder("");
 
 				if (useMostRCMList == null) {
@@ -510,8 +484,8 @@ public class MainInterface extends JFrame implements ActionListener {
 
 				if (useMostRCMList.size() > 1  && useMostRCMList.size() == RMOS1.getRCMList().size()) {
 					str.append("All the RCMs are used "
-							+ useMostRCMList.get(0).getUseTimesInLastNDay(day)
-							+ " times in the last " + day + " days\n");
+						+ useMostRCMList.get(0).getUseTimesInLastNDay(day)
+						+ " times in the last " + day + " days\n");
 					str.append("RCM ID and Locations are: \n");
 
 					for (int i = 0; i < useMostRCMList.size(); i++) {
@@ -524,19 +498,16 @@ public class MainInterface extends JFrame implements ActionListener {
 
 				} else if (useMostRCMList.size() > 1) {
 					str.append("There are " + useMostRCMList.size()
-							+ " RCMs that are used most in the last " + day
-							+ " days\n");
+						+ " RCMs that are used most in the last " + day	+ " days\n");
 					str.append("Number of times used is(are): "
 							+ useMostRCMList.get(0).getUseTimesInLastNDay(day) + "\n");
 					str.append("RCM ID and Locations are: \n");
 					for (int i = 0; i < useMostRCMList.size(); i++) {
 						str.append("ID: " + useMostRCMList.get(i).getRCMID()
-								+ "; Location: "
-								+ useMostRCMList.get(i).getRCMLocation() + "\n");
+							+ "; Location: " + useMostRCMList.get(i).getRCMLocation() + "\n");
 					}
 					JOptionPane.showMessageDialog(null, str);
 					return;
-
 				}
 				str.append("The ID and Location of RCM that is used most in the last "
 						+ day + " days are: \n");
@@ -545,7 +516,6 @@ public class MainInterface extends JFrame implements ActionListener {
 						+ useMostRCMList.get(0).getRCMLocation() + "\n");
 				str.append("Number of times used is(are): "
 						+ useMostRCMList.get(0).getUseTimesInLastNDay(day) +'\n');
-
 				JOptionPane.showMessageDialog(null, str);
 				return;
 			} 
@@ -554,12 +524,10 @@ public class MainInterface extends JFrame implements ActionListener {
 
 	private void showTimeLastEmptied() {
 		resultPanel.setVisible(false);
-
 		setTitle("Welcome to Eco Recycle System (Show the time RCM was emptied last time");
-
 		buttonPanel.removeAll();
 		displayPanel.removeAll();
-	 
+	
 		JLabel c4 = new JLabel("Show the time RCM was emptied last time");
 		c4.setFont(new Font("Serif", Font.PLAIN, 30));
 		c4.setToolTipText("Click this button to show the time RCM was emptied last time.");
@@ -608,9 +576,7 @@ public class MainInterface extends JFrame implements ActionListener {
 									break;
 								}
 							}
-
 						}
-
 						JOptionPane.showMessageDialog(MainInterface.this, sl6,
 								"Information", JOptionPane.INFORMATION_MESSAGE);
 					}
@@ -620,7 +586,6 @@ public class MainInterface extends JFrame implements ActionListener {
 				}
 			}
 		});
-
 		displayPanel.revalidate();
 		displayPanel.repaint();
 		setVisible(true);
@@ -635,7 +600,6 @@ public class MainInterface extends JFrame implements ActionListener {
 		resultPanel.repaint();
 	}
 
-
 	private void checkNumberItemNDays() {
 		clearPanels();
 		resultPanel.setVisible(false);
@@ -644,12 +608,10 @@ public class MainInterface extends JFrame implements ActionListener {
 
 		setTitle("Welcome to Eco Recycle System (Check number of recyclable items in RCM (in a month))");
 		JLabel sl1 = new JLabel("Check number of items in RCM (in a month)");
-
 		sl1.setForeground(Color.MAGENTA);
 		sl1.setFont(new Font("Serif", Font.PLAIN, 30));
 		sl1.setHorizontalAlignment(SwingConstants.CENTER);
 		displayPanel.add(sl1);
-		
 		buttonPanel.add(machineDropDown);
 		
 		JButton sl2 = new JButton("Enter a specific n (days)");		
@@ -693,7 +655,6 @@ public class MainInterface extends JFrame implements ActionListener {
 								JOptionPane.ERROR_MESSAGE);
 						return;
 					}
-					 
 					ArrayList<RCM> list = RMOS1.getRCMList();
 					int day = Integer.parseInt(n.getText());
 
@@ -707,22 +668,17 @@ public class MainInterface extends JFrame implements ActionListener {
 						for (int i = 0; i < list.size(); i++) {
 							if (str.equalsIgnoreCase(list.get(i).getRCMID())) {
 								sl6.append("Number of items returned by RCM ("
-										+ list.get(i).getRCMID() + ") is: "
-										+ list.get(i).getNoOfItemInNDays(day)
-										+ "\n");
-					
+									+ list.get(i).getRCMID() + ") is: "
+									+ list.get(i).getNoOfItemInNDays(day)
+									+ "\n");
 								break;
 							}
 						}
-
 					}
 
 					JOptionPane.showMessageDialog(MainInterface.this, sl6,
 							"Information", JOptionPane.INFORMATION_MESSAGE);
-
-				}
-
-				catch (Exception e) {
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
@@ -764,8 +720,8 @@ public class MainInterface extends JFrame implements ActionListener {
 					String str = (String) machineDropDown.getSelectedItem();
 					if (str.isEmpty()) {
 						JOptionPane.showMessageDialog(MainInterface.this,
-								"There are no RCMs.", "Error",
-								JOptionPane.ERROR_MESSAGE);
+							"There are no RCMs.", "Error",
+							JOptionPane.ERROR_MESSAGE);
 						return;
 					} else {
 						ArrayList<RCM> list = RMOS1.getRCMList();
@@ -773,16 +729,16 @@ public class MainInterface extends JFrame implements ActionListener {
 						if (str.equalsIgnoreCase("All")) {
 							for (int i = 0; i < list.size(); i++) {
 								sl6.append("Current amount of money in RCM "
-										+ list.get(i).getRCMID() + " is: $"
-										+ df.format(list.get(i).getCurrMoney()) + "\n");
+									+ list.get(i).getRCMID() + " is: $"
+									+ df.format(list.get(i).getCurrMoney()) + "\n");
 							}
 						} else {
 							for (int i = 0; i < list.size(); i++) {
 								if (str.equalsIgnoreCase(list.get(i).getRCMID())) {
 									sl6.append("Current amount of money in RCM "
-											+ list.get(i).getRCMID()
-											+ " is: $"
-											+ df.format(list.get(i).getCurrMoney()) + "\n");
+										+ list.get(i).getRCMID()
+										+ " is: $"
+										+ df.format(list.get(i).getCurrMoney()) + "\n");
 									break;
 								}
 							} 
@@ -791,20 +747,16 @@ public class MainInterface extends JFrame implements ActionListener {
 					JOptionPane.showMessageDialog(MainInterface.this, sl6,
 							"Information", JOptionPane.INFORMATION_MESSAGE);
 				        }
-				}
-
-				catch (Exception e) {
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
-
 		setVisible(true); 
 	}
 
 	private void checkWeight() {
 		resultPanel.setVisible(false);
-
 		setTitle("Welcome to Eco Recycle System (Check current weight of RCM)");
 		JLabel sl1 = new JLabel("\t\tCheck current weight of RCM");
 		sl1.setForeground(Color.MAGENTA);
@@ -817,11 +769,9 @@ public class MainInterface extends JFrame implements ActionListener {
 
 		buttonPanel.removeAll();
 		displayPanel.removeAll();
-		ImageIcon icon = new ImageIcon(
-				MainInterface.class.getResource("/gui/images/weight2.jpg"));
+		ImageIcon icon = new ImageIcon(MainInterface.class.getResource("/gui/images/weight2.jpg"));
 		sl1.setIcon(icon);
 		displayPanel.add(sl1);
-
 		buttonPanel.add(machineDropDown);
 
 		machineDropDown.toggleHasAll(true); 
@@ -831,7 +781,6 @@ public class MainInterface extends JFrame implements ActionListener {
 				StringBuilder sl6 = new StringBuilder();
 				try {
 					String str = (String) machineDropDown.getSelectedItem();
-
 					if (str.isEmpty()) {
 						JOptionPane.showMessageDialog(MainInterface.this,
 								"There are no RCMs", "Error",
@@ -841,7 +790,6 @@ public class MainInterface extends JFrame implements ActionListener {
 
 					else {
 						ArrayList<RCM> list = RMOS1.getRCMList();
-
 						if (str.equalsIgnoreCase("All")) {
 							for (int i = 0; i < list.size(); i++) {
 								sl6.append("Current weight of RCM "
@@ -862,22 +810,16 @@ public class MainInterface extends JFrame implements ActionListener {
 											+ " lbs; \n");
 									sl6.append("Available weight is: "
 											+ (list.get(i).getMaxWeight() - list
-													.get(i).getCurrWeightInlb())
+												.get(i).getCurrWeightInlb())
 											+ " lbs \n");
 									break;
 								}
 							}
-
 						}
 
 						JOptionPane.showMessageDialog(MainInterface.this, sl6,
 								"Information", JOptionPane.INFORMATION_MESSAGE);
 					}
-
-					// else
-					// JOptionPane.showMessageDialog(MainInterface.this,
-					// "Please select a machine", "Warning",
-					// JOptionPane.WARNING_MESSAGE);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -927,10 +869,8 @@ public class MainInterface extends JFrame implements ActionListener {
 		sl6.setFont(new Font("Serif", Font.PLAIN, 22));
 		sl6.setHorizontalAlignment(SwingConstants.CENTER);
 		resultPanel.add(sl6);
-
 		capabilitiesPanel.setVisible(true);
 		capabilitiesPanel.updatePanel(RMOS1.getRCMByID((String) machineDropDown.getSelectedItem()));
-
 		resultPanel.add(capabilitiesPanel);
 
 		setVisible(true);
@@ -938,7 +878,6 @@ public class MainInterface extends JFrame implements ActionListener {
 	}
 
 	private void remove() {
-	
 		buttonPanel.removeAll();
 		displayPanel.removeAll();
 		resultPanel.removeAll(); 
@@ -984,11 +923,8 @@ public class MainInterface extends JFrame implements ActionListener {
 				MainInterface.class.getResource("/gui/images/remove.png"));
 		sl1.setIcon(icon);
 		displayPanel.add(sl1);
-
 		buttonPanel.add(machineDropDown);
-
-		machineDropDown.toggleHasAll(true);
-		// selectMachine();
+		machineDropDown.toggleHasAll(true); 
 		resultPanel.add(c5);
 		buttonPanel.setVisible(true);
 		resultPanel.setVisible(true);
@@ -1132,13 +1068,10 @@ public class MainInterface extends JFrame implements ActionListener {
 
 	public void checkStatus() {
 		resultPanel.setVisible(false);
-
 		setTitle("Welcome to Eco Recycle System (RCM Operational Status)");
-
 		JLabel sl1 = new JLabel("Current Operational RCM Status");
 		sl1.setForeground(Color.MAGENTA);
 		sl1.setFont(new Font("Serif", Font.PLAIN, 25));
-
 		Font textFont = new Font("Serif", Font.PLAIN, 15);
 		buttonPanel.removeAll();
 		displayPanel.removeAll();
@@ -1197,5 +1130,4 @@ public class MainInterface extends JFrame implements ActionListener {
 		resultPanel.add(grid);
 		resultPanel.setVisible(true);
 	}
-
 }
