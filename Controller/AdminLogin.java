@@ -4,15 +4,13 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JButton;
-import javax.swing.JLabel;
-//import javax.swing.JPanel;
+import javax.swing.JLabel; 
 import javax.swing.JPasswordField;
 import javax.swing.JTextField; 
 import model.RMOS; 
 import java.awt.Container;
 import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-//import java.awt.Color;
+import java.awt.event.ActionEvent; 
 
 /**
  * @(#)AdminLogin.java
@@ -86,8 +84,7 @@ public class AdminLogin
 			    		    		scon.removeAll();
 			    	        		start.setVisible(false);
 			    	        		new MainInterface(rmos);        
-		    		    		} 
-		    		    		 else {
+		    		    		} else {
 		    		    			JOptionPane.showMessageDialog(null ,"The username or password you entered is incorrect.") ;	 
 		    		    		 }  
 	    			   	} 
