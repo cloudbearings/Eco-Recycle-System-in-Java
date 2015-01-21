@@ -172,10 +172,6 @@ public class CustomerInterface extends JFrame implements ActionListener, Observe
 						return;
 					}
 
-//					if (RCM1 == RMOS1.getRCMByID(e.getActionCommand())) {
-//						return;
-//					}
-
 					RCM1 = RMOS1.getRCMByID(e.getActionCommand());
 
 					itemTypeDropDown = new SelectItemTypeDropDown(RCM1);
@@ -183,7 +179,6 @@ public class CustomerInterface extends JFrame implements ActionListener, Observe
 
 					resultPanel.removeAll();
 					resultPanel.setVisible(false);
-
 					resultPanel.revalidate();
 					resultPanel.repaint();
 
@@ -245,9 +240,7 @@ public class CustomerInterface extends JFrame implements ActionListener, Observe
 	}
 
 	private void mainMenu() {
-
 		this.clearPanels();
-
 		if (RCM1 == null) {
 			selectRCMScreen();
 		} else { 
@@ -343,7 +336,6 @@ public class CustomerInterface extends JFrame implements ActionListener, Observe
 			grid.add(typeName);
 			grid.add(price);
 			grid.add(weight);
-
 		}
 
 		JButton show = new JButton();
@@ -381,7 +373,6 @@ public class CustomerInterface extends JFrame implements ActionListener, Observe
 	}
 
 	private void startRecycle() {
-		// setVisible(false);
 		rcmPanel.setVisible(false);
 		rcmPanel.removeAll();
 		resultPanel.setVisible(false);
@@ -407,13 +398,9 @@ public class CustomerInterface extends JFrame implements ActionListener, Observe
 	}
 
 	private void addRecycleItemScreen(boolean hasItemAlready) {
-
 		clearPanels();
-
 		JLabel itemSelectHeader = generateFormattedLabel("Select an item type");
-
 		weightField = new JTextField(10);
-
 		JButton submit = new JButton("Submit");
 		submit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
@@ -429,42 +416,33 @@ public class CustomerInterface extends JFrame implements ActionListener, Observe
 		rcmPanel.add(submit);
 
 		if (hasItemAlready) {
-
 			JButton checkout = new JButton("Stop Adding Items");
 			checkout.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent event) {
 					checkoutScreen();
 				}
-
 			});
-
 			rcmPanel.add(checkout);
 		}
-
 		rcmPanel.revalidate();
 		rcmPanel.repaint();
-
 		rcmPanel.setVisible(true);
 	}
 
 	private void addItemHandler() {
 
 		try {
-
 			RCM1.addRecycleItem(itemTypeDropDown.getSelectedItem().toString(),
 					Double.parseDouble(weightField.getText()));
-
 			int option = JOptionPane
 					.showConfirmDialog(
 							CustomerInterface.this,
 							"Success! \nRecyclable item is accepted\n Do you want to drop next item?",
 							null, JOptionPane.YES_NO_OPTION);
-
 			if (option == JOptionPane.YES_OPTION)
 				addRecycleItemScreen(true);
 			else
 				checkoutScreen();
-
 		} catch (NumberFormatException e) {
 			JOptionPane.showMessageDialog(null,
 					"Invalid weight: Need a positive number", "Error",
@@ -478,16 +456,12 @@ public class CustomerInterface extends JFrame implements ActionListener, Observe
 			JOptionPane.showMessageDialog(null, e.getMessage(), "Error",
 					JOptionPane.ERROR_MESSAGE);
 		}
-
 	}
 
 	private void checkoutScreen() {
 		clearPanels();
-
 		resultPanel.setVisible(false);
-
 		JButton AddMoreItemsButton = new JButton("Add More Items");
- 
 		AddMoreItemsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				addRecycleItemScreen(true);
@@ -553,7 +527,6 @@ public class CustomerInterface extends JFrame implements ActionListener, Observe
 				"Information", JOptionPane.INFORMATION_MESSAGE); 
 		}
 		RCM1.getReward();
-
 		this.RMOS1.statusUpdated();
 		Serialize_Deserialize.serializeObject(RMOS1);
 		mainMenu();
@@ -562,9 +535,7 @@ public class CustomerInterface extends JFrame implements ActionListener, Observe
 
 	private JPanel showItemListPanel() {
 		clearPanels();
-
 		ArrayList<RecycleItem> list = RCM1.getUserItemList();
-
 		if (list.size() == 0) {
 			resultPanel.removeAll();
 			resultPanel.setVisible(false);
@@ -575,10 +546,8 @@ public class CustomerInterface extends JFrame implements ActionListener, Observe
 
 		JPanel grid = new JPanel(new GridLayout(0, 3));
 		grid.setBackground(new Color(250, 250, 210));
-
 		grid.setPreferredSize(new Dimension(300, 100));
 		Font textFont = new Font("Serif", Font.PLAIN, 18);
-
 		String[] headers = { "Itemtype", "Item Weight", "Price" };
 
 		for (int i = 0; i < headers.length; i++) {
@@ -592,23 +561,18 @@ public class CustomerInterface extends JFrame implements ActionListener, Observe
 			RecycleItem item = list.get(i);
 			JLabel typeName = new JLabel(item.getItemType().getType());
 			typeName.setFont(textFont);
-
 			JLabel weight = new JLabel();
 			if (showlb)
 				weight.setText(df.format(item.getItemWeightInlb()) + " lbs");
 			else
 				weight.setText(df.format(item.getItemWeightInkg()) + " kg");
-
 			weight.setFont(textFont);
-
 			JLabel price = new JLabel("$" + df.format(item.getItemPrice()));
 			price.setFont(textFont);
-
 			grid.add(typeName);
 			grid.add(weight);
 			grid.add(price); 
 		}
-		
 		JLabel totalLabel = new JLabel("Total value:");
 		totalLabel.setFont(textFont);
 		grid.add(totalLabel);
@@ -625,7 +589,6 @@ public class CustomerInterface extends JFrame implements ActionListener, Observe
 		JLabel label = new JLabel(text);
 		label.setForeground(Color.MAGENTA);
 		label.setFont(new Font("Verdana", Font.PLAIN, 22));
-
 		return label;
 	}
 
@@ -633,7 +596,6 @@ public class CustomerInterface extends JFrame implements ActionListener, Observe
 		rcmPanel.removeAll();
 		rcmPanel.revalidate();
 		rcmPanel.repaint();
-
 		resultPanel.removeAll();
 		resultPanel.revalidate();
 		resultPanel.repaint();
@@ -641,10 +603,8 @@ public class CustomerInterface extends JFrame implements ActionListener, Observe
 
 	@Override
 	public void update(Observable o, Object arg) {
-		if (o instanceof RMOS)
-		{
+		if (o instanceof RMOS) {
 			RMOS rmos = (RMOS) o;
-
 			updateRCMMenu(rmos);
 		}
 		if (showingItemTypes)
