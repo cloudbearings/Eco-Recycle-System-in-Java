@@ -106,15 +106,14 @@ public class RCM extends Observable implements Serializable {
 
 		if ((!aboveZero(itemPrice)) || (!aboveZero(weightForPrice))) {
 			throw new NumberFormatException("itemType " + typeName + ": "
-					+ "itemPrice and weight must be greater than zero.");
+				+ "itemPrice and weight must be greater than zero.");
 		}
 
 		int i = indexOfItemTypeByName(typeName);
 		
 		if (i != -1)	{
-			throw new IllegalArgumentException("Itemtype "
-					+ typeName
-					+ " exists in the ItemTypeList. You can click Change button to change its price by weight.");					
+			throw new IllegalArgumentException("Itemtype "	+ typeName
+				+ " exists in the ItemTypeList. You can click Change button to change its price by weight.");					
 		}	
 		
 		ItemType itemType = new ItemType(typeName, itemPrice, weightForPrice);
@@ -124,16 +123,15 @@ public class RCM extends Observable implements Serializable {
 	}
 	
 	public void changeItemType(int index, String typeName,
-			double itemPrice, double weightForPrice) throws IllegalArgumentException, NumberFormatException {
-		if ((!aboveZero(itemPrice)) || (!aboveZero(weightForPrice))) {
-			throw new NumberFormatException("itemType " + typeName + ": "
+		double itemPrice, double weightForPrice) throws IllegalArgumentException, NumberFormatException {
+			if ((!aboveZero(itemPrice)) || (!aboveZero(weightForPrice))) {
+				throw new NumberFormatException("itemType " + typeName + ": "
 					+ "itemPrice and weight must be greater than zero.");
 		}
 		
 		int i = indexOfItemTypeByName(typeName);
 		
-		if (i != -1 && i != index)
-		{
+		if (i != -1 && i != index) {
 			throw new IllegalArgumentException("Itemtype " + typeName
 				+ " exists in the ItemTypeList. You can click Change button to change its price by weight.");			
 		}	
@@ -155,7 +153,6 @@ public class RCM extends Observable implements Serializable {
 				break;
 			}
 		}
-		
 		return i;
 	} 
 
@@ -238,7 +235,6 @@ public class RCM extends Observable implements Serializable {
 	}
 	
 	public double RCMAvailableSpace() {
-
 		return RCMMaxWeight - RCMCurrWeight;
 	}
 
@@ -259,9 +255,7 @@ public class RCM extends Observable implements Serializable {
 		}
 
 		// Does not allow an item that is not permitted and shown as a recyclable item
-
 		int index = this.indexOfItemTypeByName(typeName);
-		
 		if (index == -1) {
 			throw new IllegalArgumentException("Item type " + typeName + " is not acceptable");			
 		}
@@ -309,11 +303,9 @@ public class RCM extends Observable implements Serializable {
 		System.out.println("List of recycleItem's type, weight(kg) and price due to the customer:");
 		System.out.println("\t" + "itemType" + "\t" + "itemWeight " + "\t"
 				+ "itemPrice");
-				
 		for (i = 0; i < recycleItemList.size(); i++) {
 			itemList += recycleItemList.get(i).showItemStatusWeightInkg();
 		}
-		
 		System.out.println("The total value due to the customer is: $"
 				+ valueForUser());
 		return itemList;
@@ -372,9 +364,7 @@ public class RCM extends Observable implements Serializable {
 			recycleItemList.clear();
 	}
 
-
 	public void emptyRCM() {
-		
 		GregorianCalendar emptyTime = new GregorianCalendar();
 		System.out.println("The emptyTime is: " + emptyTime.getTime());
 		emptyTimeList.add(emptyTime);
@@ -396,7 +386,6 @@ public class RCM extends Observable implements Serializable {
 			System.out.println("1 day before:" + (lastNDays.getTime()).toString());
 			System.out.println(isAfter);
 		}
-		
 		return counter;
 	}
 
@@ -422,7 +411,6 @@ public class RCM extends Observable implements Serializable {
 		return counter;
 	}
 	
-	
 	public int getUseTimesInLastNDay(int n) {
 		GregorianCalendar lastNDay = new GregorianCalendar();
 		lastNDay.add(GregorianCalendar.DATE, -n);
@@ -443,7 +431,6 @@ public class RCM extends Observable implements Serializable {
 				counter++;
 			}			
 		}
-	
 		return counter;
 	}
 	
@@ -451,7 +438,6 @@ public class RCM extends Observable implements Serializable {
 		ArrayList<Double> list = new ArrayList<Double>();
 		double totalWeight = 0;
 		double totalValue = 0;
-		
 		int diffDays = 1;
 		
 		if (totalItemList.size() == 0) {
@@ -468,10 +454,8 @@ public class RCM extends Observable implements Serializable {
 		
 		GregorianCalendar startDate = totalItemList.get(0).getItemAddTime();
 		GregorianCalendar endDate = totalItemList.get(totalItemList.size() - 1).getItemAddTime();
-		
 		GregorianCalendar tempStart = (GregorianCalendar)startDate.clone();
 		GregorianCalendar tempEnd = (GregorianCalendar)endDate.clone();
-		
 		
 		while (tempStart.get(GregorianCalendar.YEAR) != tempEnd.get(GregorianCalendar.YEAR) || tempStart.get(GregorianCalendar.DAY_OF_YEAR) != tempEnd.get(GregorianCalendar.DAY_OF_YEAR)) {
 			diffDays++;
@@ -480,7 +464,6 @@ public class RCM extends Observable implements Serializable {
 		
 		list.add(totalWeight/diffDays);
 		list.add(totalValue/diffDays);
-				
 		return list;
 	}
 	
@@ -512,7 +495,6 @@ public class RCM extends Observable implements Serializable {
 	
 		// In order to get ceiling, integer / integer must be avoided. That is, dividend or  divisor must be double type. 
 		int week = (int)Math.ceil(diffDays / 7.0);
-		 
 		list.add(totalWeight/week);
 		list.add(totalValue/week);
 		return list;	
@@ -522,7 +504,6 @@ public class RCM extends Observable implements Serializable {
 		ArrayList<Double> list = new ArrayList<Double>();
 		double totalWeight = 0;
 		double totalValue = 0;
-		
 		int diffDays = 1;
 		
 		if (totalItemList.size() == 0) {
@@ -537,10 +518,8 @@ public class RCM extends Observable implements Serializable {
 		
 		GregorianCalendar startDate = totalItemList.get(0).getItemAddTime();
 		GregorianCalendar endDate = totalItemList.get(totalItemList.size() - 1).getItemAddTime();
-		
 		GregorianCalendar tempStart = (GregorianCalendar)startDate.clone();
 		GregorianCalendar tempEnd = (GregorianCalendar)endDate.clone();
-		
 		
 		while (tempStart.get(GregorianCalendar.YEAR) != tempEnd.get(GregorianCalendar.YEAR) || tempStart.get(GregorianCalendar.DAY_OF_YEAR) != tempEnd.get(GregorianCalendar.DAY_OF_YEAR)) {
 			diffDays++;
@@ -558,7 +537,6 @@ public class RCM extends Observable implements Serializable {
 		ArrayList<Double> list = new ArrayList<Double>();
 		double totalWeight = 0;
 		double totalValue = 0;
-		
 		int diffDays = 1;
 		
 		if (totalItemList.size() == 0) {
@@ -573,10 +551,8 @@ public class RCM extends Observable implements Serializable {
 		
 		GregorianCalendar startDate = totalItemList.get(0).getItemAddTime();
 		GregorianCalendar endDate = totalItemList.get(totalItemList.size() - 1).getItemAddTime();
-		
 		GregorianCalendar tempStart = (GregorianCalendar)startDate.clone();
 		GregorianCalendar tempEnd = (GregorianCalendar)endDate.clone();
-		
 		
 		while (tempStart.get(GregorianCalendar.YEAR) != tempEnd.get(GregorianCalendar.YEAR) || tempStart.get(GregorianCalendar.DAY_OF_YEAR) != tempEnd.get(GregorianCalendar.DAY_OF_YEAR)) {
 			diffDays++;
