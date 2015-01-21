@@ -160,15 +160,12 @@ public class RMOS extends Observable implements Serializable{
 	
 	public RCM getRCMByID(String id) {
 		RCM result = null;
-		
 		for (int i = 0; i < RCMList.size(); i++) {
-			if (RCMList.get(i).getRCMID().equals(id))
-			{
+			if (RCMList.get(i).getRCMID().equals(id)) {
 				result = RCMList.get(i);
 				break;
 			}
 		}
-		
 		return result;
 	}
 	
@@ -248,7 +245,6 @@ public class RMOS extends Observable implements Serializable{
 		}
 		
 		useMostRCMList.add(RCMList.get(0));
-		
 		int maxUseTimes = RCMList.get(0).getUseTimesInLastNDay(n);
 
 		for (int i = 1; i < RCMList.size(); i++) {
@@ -276,9 +272,7 @@ public class RMOS extends Observable implements Serializable{
 				System.out.println("ID: " + useMostRCMList.get(i).getRCMID() + "; Location: " + useMostRCMList.get(i).getRCMLocation() + "\n");							
 			}
 			return useMostRCMList;	
-		}
-		
-		else if (useMostRCMList.size() >1) {
+		} else if (useMostRCMList.size() >1) {
 			System.out.println("There are " + useMostRCMList.size() + " RCMs that are used most in the last " + n + " days\n");
 			System.out.println("Use times is(are): " + useMostRCMList.get(0).getUseTimesInLastNDay(n));
 			System.out.println("RCM ID and Locations are: \n");
