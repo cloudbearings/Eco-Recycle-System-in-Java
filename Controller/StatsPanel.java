@@ -1,8 +1,6 @@
 package Controller;
 
 import java.awt.BorderLayout;
-
-
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -98,7 +96,6 @@ public class StatsPanel extends JPanel implements Observer {
 				public void actionPerformed(ActionEvent e) {
 					radioButtonChanged(e.getActionCommand());
 				}
-
 			});
 			radioButton[i].setActionCommand(commands[i]);
 			radioPanel.add(radioButton[i]);
@@ -150,11 +147,9 @@ public class StatsPanel extends JPanel implements Observer {
 				true, // tooltips?
 				false // URLs?
 				);
-
 		ChartPanel panel = new ChartPanel(chart, 400, 400, 100, 100, 500, 500,
 				false, false, false, false, true, false);
 		chartPanel.add(panel);
-
 		chartPanel.revalidate();
 		chartPanel.repaint();
 		chartPanel.setVisible(true);
@@ -163,7 +158,6 @@ public class StatsPanel extends JPanel implements Observer {
 	private void chartEmptiesData() {
 		if (!this.hoursSetPressed)
 			return;
-		
 		try {
 			int numHours = Integer.parseInt(this.hoursTextField.getText());
 
@@ -178,10 +172,9 @@ public class StatsPanel extends JPanel implements Observer {
 			}
 			
 			drawChart(data, "# of times emptied in " + numHours + " hours", "RCM", "Times emptied");
-			
 		} catch (NumberFormatException e) {
 			JOptionPane.showMessageDialog(null, "Please enter a valid integer",
-					"Error", JOptionPane.ERROR_MESSAGE);
+				"Error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
@@ -189,10 +182,8 @@ public class StatsPanel extends JPanel implements Observer {
 		String duration = "day";
 		if (weekDayButtons[0].isSelected())
 			duration = "week";
-
 		String valueWeight = "Value";
 		int index = 1;
-
 		if (isWeight) {
 			valueWeight = "Weight";
 			index = 0;
@@ -212,18 +203,16 @@ public class StatsPanel extends JPanel implements Observer {
 	public void update(Observable o, Object arg) {
 		if (currentSelection == -1)
 			return;
-
 		switch (currentSelection) {
-
-		case 0: // empties
-			chartEmptiesData();
-			break;
-		case 1: // weight
-			chartWeightValueData(true);
-			break; 
-		case 2: // value
-			chartWeightValueData(false);
-			break;
+			case 0: // empties
+				chartEmptiesData();
+				break;
+			case 1: // weight
+				chartWeightValueData(true);
+				break; 
+			case 2: // value
+				chartWeightValueData(false);
+				break;
 		}
 	}
 }
