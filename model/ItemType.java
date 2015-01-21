@@ -1,7 +1,5 @@
 package model;
-
 import java.io.*;
-
 
 /**
  * This class represents item types that are acceptable to RCM. It holds information 
@@ -13,8 +11,8 @@ import java.io.*;
  * @CourseNumber: COEN 275
  * @AssignmentNumber: Final Project
  * @DateOfSubmission: 3/2014
- *
  */
+ 
 public class ItemType implements Serializable {
 	/* System generate a serial Version ID; */
 	private static final long serialVersionUID = 7652100000729626969L;
