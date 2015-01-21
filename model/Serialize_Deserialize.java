@@ -16,7 +16,6 @@ public class Serialize_Deserialize {
 	static final String fileName = "RMOS.ser";
 
 	// Serialize & Deserialize Object
-
 	public static void serializeObject(Object obj) {
 		FileOutputStream fout = null;
 		ObjectOutputStream out = null;
@@ -58,6 +57,5 @@ public class Serialize_Deserialize {
 			}
 		}
 		return result;
-
 	}
 }
